@@ -8,9 +8,14 @@ def create_manhole_endpoints(app, services):
     def getManhole():
         if request.method == "GET":
             land = request.args.get("land")
-            print(land)
-            if land:
-                manholeData = manholeService.getManhole2Land(land)
+            prefecture = request.args.get("prefecture")
+
+            if land or prefecture:
+                if prefecture:
+                    manholeData = manholeService.getManhole2Prefecture(prefecture)
+                elif land:
+                    manholeData = manholeService.getManhole2Land(land)
+
                 if manholeData == 400:
                     return (
                         jsonify(
@@ -18,6 +23,7 @@ def create_manhole_endpoints(app, services):
                         ),
                         400,
                     )
+
                 return jsonify({"result": "success", "data": manholeData["data"]})
 
             manholeData = manholeService.getManhole()

@@ -10,7 +10,12 @@ class manholeService:
 
     def getManhole2Land(self, land):
         result = self.manholeModel.getManhole2Land(land)
-        print(result)
+        if result:
+            return {"data": result}
+        return 400
+
+    def getManhole2Prefecture(self, prefecture):
+        result = self.manholeModel.getManholePrefecture(prefecture)
         if result:
             return {"data": result}
         return 400

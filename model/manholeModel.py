@@ -24,3 +24,13 @@ class manholeModel:
         result = cursor.fetchall()
         db.close()
         return result
+
+    def getManholePrefecture(self, prefecture):
+        print(prefecture)
+        db = self.db.getDB()
+        cursor = db.cursor(pymysql.cursors.DictCursor)
+        sql = """SELECT * FROM Manhole WHERE prefecture = %s;"""
+        cursor.execute(sql % prefecture)
+        result = cursor.fetchall()
+        db.close()
+        return result
