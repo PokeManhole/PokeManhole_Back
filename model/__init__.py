@@ -1,5 +1,4 @@
 from .userModel import userModel
+from .manholeModel import manholeModel
 
-__all__ = [
-    "userModel",
-]
+__all__ = ["userModel", "manholeModel"]
