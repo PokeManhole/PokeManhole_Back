@@ -9,8 +9,11 @@ def create_manhole_endpoints(app, services):
         if request.method == "GET":
             land = request.args.get("land")
             prefecture = request.args.get("prefecture")
+            manholeId = request.args.get("id")
 
-            if land or prefecture:
+            if manholeId or land or prefecture:
+                if manholeId:
+                    manholeData = manholeService.getManhole2Id(manholeId)
                 if prefecture:
                     manholeData = manholeService.getManhole2Prefecture(prefecture)
                 elif land:
