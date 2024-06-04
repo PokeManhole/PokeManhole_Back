@@ -1,9 +1,11 @@
 from collections import defaultdict
+from tools.token import tokenTool
 
 
 class manholeService:
     def __init__(self, manholeModel):
         self.manholeModel = manholeModel
+        self.tools = tokenTool()
 
     def getManhole(self):
         result = self.manholeModel.getManhole()
@@ -36,3 +38,10 @@ class manholeService:
         if result:
             return {"data": result}
         return 400
+
+    def achieveManhole(self, token, value):
+        userId = self.tools.get_data(token)["id"]
+        manholeId = value["manholeId"]
+        result = self.manholeModel.insertAchieving(userId, manholeId)
+
+        return result

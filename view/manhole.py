@@ -31,3 +31,21 @@ def create_manhole_endpoints(app, services):
 
             manholeData = manholeService.getManhole()
             return jsonify({"result": "success", "data": manholeData["data"]})
+
+    @app.route("/manhole/achieve", methods=["POST"])
+    def achieveManhole():
+        if request.method == "POST":
+            value = request.json
+            token = request.headers["Authorization"]
+            if token == "":
+                return (
+                    jsonify({"result": "failure", "msg": "유저 정보 가져오기 실패"}),
+                    400,
+                )
+            data = manholeService.achieveManhole(token, value)
+            if data == 400:
+                return (
+                    jsonify({"result": "failure", "msg": "달성 실패"}),
+                    400,
+                )
+            return jsonify({"result": "success", "msg": "추가 성공"})
