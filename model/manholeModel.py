@@ -16,8 +16,7 @@ class manholeModel:
         db.close()
         return result
 
-    def getManhole2Land(self, land):
-        userId = 1
+    def getManhole2Land(self, land, userId):
         db = self.db.getDB()
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """SELECT m1.*, 
@@ -32,8 +31,7 @@ class manholeModel:
         db.close()
         return result
 
-    def getManholePrefecture(self, prefecture):
-        userId = 1
+    def getManholePrefecture(self, prefecture, userId):
         db = self.db.getDB()
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """SELECT m1.*, 
@@ -48,8 +46,7 @@ class manholeModel:
         db.close()
         return result
 
-    def getManhole2Id(self, id):
-        userId = 1
+    def getManhole2Id(self, id, userId):
         db = self.db.getDB()
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """SELECT m1.*, 
