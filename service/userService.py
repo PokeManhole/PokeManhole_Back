@@ -1,10 +1,12 @@
 import bcrypt
 import jwt
+from tools.token import tokenTool
 
 
 class userService:
     def __init__(self, authModel):
         self.authModel = authModel
+        self.tools = tokenTool()
 
     def tryLogin(self, email, password):
         resurt = self.authModel.getUser2Email(email)
@@ -33,3 +35,17 @@ class userService:
             return resurt
         else:
             return 400
+
+    def getUser2Token(self, token):
+        email = self.tools.get_data(token)["email"]
+        password = self.tools.get_data(token)["password"]
+
+        resurt = self.authModel.getUser2Email(email)
+        if resurt:
+            if resurt["password"] == password:
+                return {
+                    "id": resurt["id"],
+                    "email": resurt["email"],
+                    "name": resurt["name"],
+                }
+        return 400

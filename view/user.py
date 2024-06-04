@@ -32,3 +32,20 @@ def create_user_endpoints(app, services):
                 return jsonify(
                     {"result": "success", "data": joinInfo, "msg": "유저 정보 가져오기"}
                 )
+
+    @app.route("/user", methods=["GET"])
+    def user():
+        if request.method == "GET":
+            token = request.headers["Authorization"]
+            if token == "":
+                return (
+                    jsonify({"result": "failure", "msg": "유저 정보 가져오기 실패"}),
+                    400,
+                )
+            data = userService.getUser2Token(token)
+            if data == 400:
+                return (
+                    jsonify({"result": "failure", "msg": "인증 실패"}),
+                    400,
+                )
+            return jsonify({"result": "success", "msg": "인증 성공", "data": data}), 200
