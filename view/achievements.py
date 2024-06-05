@@ -9,6 +9,7 @@ def create_achievements_endpoints(app, services):
     @app.route("/achievements", methods=["GET"])
     def getAchievements():
         if request.method == "GET":
-            data = achievementsService.getAchievements()
+            token = request.headers["Authorization"]
+            data = achievementsService.getAchievements(token)
             return jsonify({"result": "success", "data": data})
         return jsonify({"result": "error"}), 400
