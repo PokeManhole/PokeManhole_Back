@@ -17,7 +17,7 @@ class achievementsService:
             if item["type"] == 1:
                 landGroup = self.getAchievement2Land(userId)
                 item["rate"] = len(landGroup[item["conditions_key"]])
-            elif item["type"] == 2:
+            elif item["type"] == 2 or item["type"] == 4:
                 landGroup = self.getAchievement2Land(userId)
                 rate = 0
                 for keys in landGroup.keys():
@@ -30,8 +30,9 @@ class achievementsService:
                 )
                 item["rate"] = len(pokemonGroup)
 
-            if item["rate"] == item["conditions"]:
+            if item["rate"] >= item["conditions"]:
                 item["isPass"] = True
+                item["rate"] = item["conditions"]
             result.append(item)
 
         return result
