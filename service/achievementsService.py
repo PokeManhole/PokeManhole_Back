@@ -14,9 +14,15 @@ class achievementsService:
         result = []
         for item in achievements:
             item["isPass"] = False
-            item["rate"] = len(landGroup[item["conditions_key"]])
-            if len(landGroup[item["conditions_key"]]) == item["conditions"]:
-                item["isPass"] = True
+            if item["type"] == 1:
+                item["rate"] = len(landGroup[item["conditions_key"]])
+                if item["rate"] == item["conditions"]:
+                    item["isPass"] = True
+            elif item["type"] == 2:
+                rate = 0
+                for keys in landGroup.keys():
+                    rate += len(landGroup[keys])
+                item["rate"] = rate
             result.append(item)
         return result
 
