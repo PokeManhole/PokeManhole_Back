@@ -13,7 +13,6 @@ class userModel:
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """SELECT * FROM Auth where email=%s;"""
         cursor.execute(sql, email)
-        print(sql % email)
         result = cursor.fetchone()
         db.close()
         return result

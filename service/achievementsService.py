@@ -12,7 +12,7 @@ class achievementsService:
         userAchievements = self.achievementsModel.getUserAchievements(userId)
         achievements = self.achievementsModel.getAchievements()
         passList = [item["achievements_id"] for item in userAchievements]
-        print(passList)
+
         result = []
         for item in achievements:
             if item["id"] in passList:

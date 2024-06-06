@@ -15,7 +15,6 @@ class userService:
             if bcrypt.checkpw(
                 password.encode("utf-8"), resurt["password"].encode("utf-8")
             ):
-                # print(pp,pp.decode('utf-8'))
                 return {
                     "token": jwt.encode(resurt, "fromis", algorithm="HS256"),
                     "id": resurt["id"],
