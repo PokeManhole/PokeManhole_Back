@@ -16,6 +16,29 @@ class achievementsModel:
         db.close()
         return result
 
+    def insertUserAchievements(self, userId, achieveId):
+        db = self.db.getDB()
+        cursor = db.cursor()
+        sql = """
+        INSERT INTO User_achievements (`user_id`, `achievements_id`) VALUES (%s, %s);
+        """
+        cursor.execute(sql, (int(userId), int(achieveId)))
+        result = cursor.fetchone()
+        db.commit()
+        db.close()
+        return result
+
+    def getUserAchievements(self, userId):
+        db = self.db.getDB()
+        cursor = db.cursor(pymysql.cursors.DictCursor)
+        sql = """
+        SELECT * FROM User_achievements WHERE user_id = %s;
+        """
+        cursor.execute(sql % userId)
+        result = cursor.fetchall()
+        db.close()
+        return result
+
     def getAchievements2Land(self, userId):
         db = self.db.getDB()
         cursor = db.cursor(pymysql.cursors.DictCursor)

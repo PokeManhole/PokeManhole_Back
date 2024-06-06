@@ -9,10 +9,18 @@ class achievementsService:
 
     def getAchievements(self, token):
         userId = self.tools.get_data(token)["id"]
+        userAchievements = self.achievementsModel.getUserAchievements(userId)
         achievements = self.achievementsModel.getAchievements()
-
+        passList = [item["achievements_id"] for item in userAchievements]
+        print(passList)
         result = []
         for item in achievements:
+            if item["id"] in passList:
+                item["isPass"] = True
+                item["rate"] = item["conditions"]
+                result.append(item)
+                continue
+
             item["isPass"] = False
             if item["type"] == 1:
                 landGroup = self.getAchievement2Land(userId)
@@ -33,6 +41,7 @@ class achievementsService:
             if item["rate"] >= item["conditions"]:
                 item["isPass"] = True
                 item["rate"] = item["conditions"]
+                self.achievementsModel.insertUserAchievements(userId, item["id"])
             result.append(item)
 
         return result
